@@ -935,7 +935,7 @@ public:
         auto zp = encode(p);
         auto range = pgm.search(zp);
         auto it = std::lower_bound(data.begin() + range.lo, data.begin() + range.hi, zp);
-        return it != data.end() || morton::Decode(*it) == p;
+        return it != data.end() && morton::Decode(*it) == p;
     }
 
     /**
@@ -1085,7 +1085,7 @@ private:
                     miss = 0;
                     auto bmin = bigmin(*it, zmin, zmax);
                     auto range = super->pgm.search(bmin);
-                    it = std::upper_bound(super->data.begin() + range.lo, super->data.begin() + range.hi, bmin);
+                    it = std::lower_bound(super->data.begin() + range.lo, super->data.begin() + range.hi, bmin);
                     --it;
                 }
                 ++it;
